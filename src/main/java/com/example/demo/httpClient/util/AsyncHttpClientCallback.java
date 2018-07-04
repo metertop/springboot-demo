@@ -1,15 +1,11 @@
 package com.example.demo.httpClient.util;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.concurrent.FutureCallback;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.example.demo.httpClient.util.HttpClientUtil;
-import java.io.IOException;
+
 
 /**
  * 被回调的对象，给异步的httpclient使用
@@ -21,7 +17,6 @@ public class AsyncHttpClientCallback implements FutureCallback<HttpResponse>{
     Long start = System.currentTimeMillis();
     String responseResult;
     int responseCode;
-
 
     public int getResponseCode() {
         return responseCode;
@@ -39,7 +34,6 @@ public class AsyncHttpClientCallback implements FutureCallback<HttpResponse>{
         this.responseResult = HttpClientUtil.getHttpContent(response);
     }
 
-
     @Override
     public void completed(HttpResponse response) {
         this.setResponseCode(response);
@@ -48,7 +42,6 @@ public class AsyncHttpClientCallback implements FutureCallback<HttpResponse>{
         LOG.warn("response:{}", this.getResponseResult());
         LOG.warn("异步请求回调所用时间是: {} ms", System.currentTimeMillis() - start);
         HttpClientUtils.closeQuietly(response);
-
     }
 
     /**
@@ -68,24 +61,4 @@ public class AsyncHttpClientCallback implements FutureCallback<HttpResponse>{
     }
 
 
-/*
-    public String getHttpContent(HttpResponse response) {
-        LOG.warn("---------进入获取context----------");
-        HttpEntity entity = response.getEntity();
-        String body = null;
-
-        if (entity == null) {
-            return null;
-        }
-
-        try {
-            body = EntityUtils.toString(entity, "utf-8");
-        } catch (ParseException e) {
-            LOG.warn("the response's content inputstream is corrupt", e);
-        } catch (IOException e) {
-            LOG.warn("the response's content inputstream is corrupt", e);
-        }
-        return body;
-    }
-    */
 }

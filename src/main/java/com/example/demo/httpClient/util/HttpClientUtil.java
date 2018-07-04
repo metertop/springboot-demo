@@ -369,7 +369,6 @@ public class HttpClientUtil {
         result = getHttpContent(response);
         long costTime = System.currentTimeMillis() - startTime;
         LOG.warn("异步请求到获取请求所用的时间为：{} 毫秒", costTime);
-
         return result;
     }
 

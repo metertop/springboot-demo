@@ -42,4 +42,5 @@ public class ResponseResult {
         this.msg = msg;
         this.data = data;
     }
+
 }

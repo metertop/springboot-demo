@@ -23,7 +23,8 @@ import java.util.List;
 		DataSourceAutoConfiguration.class
 })
 
-public class MybatisDemoApplication extends WebMvcConfigurerAdapter {
+//public class MybatisDemoApplication extends WebMvcConfigurerAdapter {
+public class MybatisDemoApplication  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MybatisDemoApplication.class, args);
@@ -32,6 +33,7 @@ public class MybatisDemoApplication extends WebMvcConfigurerAdapter {
 	/**
 	 * 替换框架json为fastjson
 	 */
+	/*
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		super.configureMessageConverters(converters);
@@ -56,4 +58,5 @@ public class MybatisDemoApplication extends WebMvcConfigurerAdapter {
 
 		converters.add(fastConverter);
 	}
+	*/
 }
