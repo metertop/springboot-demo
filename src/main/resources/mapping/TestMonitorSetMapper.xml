@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.TestMonitorSetMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.TestMonitorSet" >
+    <id column="monitor_set_id" property="monitorSetId" jdbcType="BIGINT" />
+    <result column="scene_id" property="sceneId" jdbcType="BIGINT" />
+    <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+    <result column="intranet_ip" property="intranetIp" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    monitor_set_id, scene_id, scene_name, intranet_ip, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_monitor_set
+    where monitor_set_id = #{monitorSetId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_monitor_set
+    where monitor_set_id = #{monitorSetId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.TestMonitorSet" >
+    insert into t_monitor_set (monitor_set_id, scene_id, scene_name, 
+      intranet_ip, create_time)
+    values (#{monitorSetId,jdbcType=BIGINT}, #{sceneId,jdbcType=BIGINT}, #{sceneName,jdbcType=VARCHAR}, 
+      #{intranetIp,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.TestMonitorSet" >
+    insert into t_monitor_set
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="monitorSetId != null" >
+        monitor_set_id,
+      </if>
+      <if test="sceneId != null" >
+        scene_id,
+      </if>
+      <if test="sceneName != null" >
+        scene_name,
+      </if>
+      <if test="intranetIp != null" >
+        intranet_ip,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="monitorSetId != null" >
+        #{monitorSetId,jdbcType=BIGINT},
+      </if>
+      <if test="sceneId != null" >
+        #{sceneId,jdbcType=BIGINT},
+      </if>
+      <if test="sceneName != null" >
+        #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="intranetIp != null" >
+        #{intranetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.TestMonitorSet" >
+    update t_monitor_set
+    <set >
+      <if test="sceneId != null" >
+        scene_id = #{sceneId,jdbcType=BIGINT},
+      </if>
+      <if test="sceneName != null" >
+        scene_name = #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="intranetIp != null" >
+        intranet_ip = #{intranetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where monitor_set_id = #{monitorSetId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.TestMonitorSet" >
+    update t_monitor_set
+    set scene_id = #{sceneId,jdbcType=BIGINT},
+      scene_name = #{sceneName,jdbcType=VARCHAR},
+      intranet_ip = #{intranetIp,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where monitor_set_id = #{monitorSetId,jdbcType=BIGINT}
+  </update>
+</mapper>

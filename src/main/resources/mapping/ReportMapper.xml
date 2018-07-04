@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.ReportMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.Report" >
+    <id column="report_id" property="reportId" jdbcType="INTEGER" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+    <result column="scene_id" property="sceneId" jdbcType="INTEGER" />
+    <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="expect_tps" property="expectTps" jdbcType="INTEGER" />
+    <result column="actual_tps" property="actualTps" jdbcType="INTEGER" />
+    <result column="total_request" property="totalRequest" jdbcType="BIGINT" />
+    <result column="success_request" property="successRequest" jdbcType="BIGINT" />
+    <result column="business_success_request" property="businessSuccessRequest" jdbcType="BIGINT" />
+    <result column="concurrent_user" property="concurrentUser" jdbcType="INTEGER" />
+    <result column="user_waittime" property="userWaittime" jdbcType="BIGINT" />
+    <result column="server_waittime" property="serverWaittime" jdbcType="BIGINT" />
+    <result column="conclusion" property="conclusion" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    report_id, report_name, scene_id, scene_name, start_time, end_time, expect_tps, actual_tps, 
+    total_request, success_request, business_success_request, concurrent_user, user_waittime, 
+    server_waittime, conclusion, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.Report" >
+    insert into t_report (report_id, report_name, scene_id, 
+      scene_name, start_time, end_time, 
+      expect_tps, actual_tps, total_request, 
+      success_request, business_success_request, concurrent_user, 
+      user_waittime, server_waittime, conclusion, 
+      create_time)
+    values (#{reportId,jdbcType=INTEGER}, #{reportName,jdbcType=VARCHAR}, #{sceneId,jdbcType=INTEGER}, 
+      #{sceneName,jdbcType=VARCHAR}, #{startTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, 
+      #{expectTps,jdbcType=INTEGER}, #{actualTps,jdbcType=INTEGER}, #{totalRequest,jdbcType=BIGINT}, 
+      #{successRequest,jdbcType=BIGINT}, #{businessSuccessRequest,jdbcType=BIGINT}, #{concurrentUser,jdbcType=INTEGER}, 
+      #{userWaittime,jdbcType=BIGINT}, #{serverWaittime,jdbcType=BIGINT}, #{conclusion,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.Report" >
+    insert into t_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reportId != null" >
+        report_id,
+      </if>
+      <if test="reportName != null" >
+        report_name,
+      </if>
+      <if test="sceneId != null" >
+        scene_id,
+      </if>
+      <if test="sceneName != null" >
+        scene_name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="expectTps != null" >
+        expect_tps,
+      </if>
+      <if test="actualTps != null" >
+        actual_tps,
+      </if>
+      <if test="totalRequest != null" >
+        total_request,
+      </if>
+      <if test="successRequest != null" >
+        success_request,
+      </if>
+      <if test="businessSuccessRequest != null" >
+        business_success_request,
+      </if>
+      <if test="concurrentUser != null" >
+        concurrent_user,
+      </if>
+      <if test="userWaittime != null" >
+        user_waittime,
+      </if>
+      <if test="serverWaittime != null" >
+        server_waittime,
+      </if>
+      <if test="conclusion != null" >
+        conclusion,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reportId != null" >
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="reportName != null" >
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneId != null" >
+        #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneName != null" >
+        #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="expectTps != null" >
+        #{expectTps,jdbcType=INTEGER},
+      </if>
+      <if test="actualTps != null" >
+        #{actualTps,jdbcType=INTEGER},
+      </if>
+      <if test="totalRequest != null" >
+        #{totalRequest,jdbcType=BIGINT},
+      </if>
+      <if test="successRequest != null" >
+        #{successRequest,jdbcType=BIGINT},
+      </if>
+      <if test="businessSuccessRequest != null" >
+        #{businessSuccessRequest,jdbcType=BIGINT},
+      </if>
+      <if test="concurrentUser != null" >
+        #{concurrentUser,jdbcType=INTEGER},
+      </if>
+      <if test="userWaittime != null" >
+        #{userWaittime,jdbcType=BIGINT},
+      </if>
+      <if test="serverWaittime != null" >
+        #{serverWaittime,jdbcType=BIGINT},
+      </if>
+      <if test="conclusion != null" >
+        #{conclusion,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Report" >
+    update t_report
+    <set >
+      <if test="reportName != null" >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneId != null" >
+        scene_id = #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneName != null" >
+        scene_name = #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="expectTps != null" >
+        expect_tps = #{expectTps,jdbcType=INTEGER},
+      </if>
+      <if test="actualTps != null" >
+        actual_tps = #{actualTps,jdbcType=INTEGER},
+      </if>
+      <if test="totalRequest != null" >
+        total_request = #{totalRequest,jdbcType=BIGINT},
+      </if>
+      <if test="successRequest != null" >
+        success_request = #{successRequest,jdbcType=BIGINT},
+      </if>
+      <if test="businessSuccessRequest != null" >
+        business_success_request = #{businessSuccessRequest,jdbcType=BIGINT},
+      </if>
+      <if test="concurrentUser != null" >
+        concurrent_user = #{concurrentUser,jdbcType=INTEGER},
+      </if>
+      <if test="userWaittime != null" >
+        user_waittime = #{userWaittime,jdbcType=BIGINT},
+      </if>
+      <if test="serverWaittime != null" >
+        server_waittime = #{serverWaittime,jdbcType=BIGINT},
+      </if>
+      <if test="conclusion != null" >
+        conclusion = #{conclusion,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Report" >
+    update t_report
+    set report_name = #{reportName,jdbcType=VARCHAR},
+      scene_id = #{sceneId,jdbcType=INTEGER},
+      scene_name = #{sceneName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      expect_tps = #{expectTps,jdbcType=INTEGER},
+      actual_tps = #{actualTps,jdbcType=INTEGER},
+      total_request = #{totalRequest,jdbcType=BIGINT},
+      success_request = #{successRequest,jdbcType=BIGINT},
+      business_success_request = #{businessSuccessRequest,jdbcType=BIGINT},
+      concurrent_user = #{concurrentUser,jdbcType=INTEGER},
+      user_waittime = #{userWaittime,jdbcType=BIGINT},
+      server_waittime = #{serverWaittime,jdbcType=BIGINT},
+      conclusion = #{conclusion,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+</mapper>

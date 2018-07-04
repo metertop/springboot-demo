@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+    datasource:
+        name: @maven.point.master.datasource.database@
+        url: jdbc:mysql://@maven.point.master.datasource.ip@:@maven.point.master.datasource.port@/@maven.point.master.datasource.database@?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull
+        username: @maven.point.master.datasource.username@
+        password: @maven.point.master.datasource.password@
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        #使用 jdbc 驱动6, 使用generator插件后，url必须增加nullCatalogMeansCurrent=true，否则会串库
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.example.demo.model
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: false   // 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页； 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据。
+    supportMethodsArguments: true
+    params: count=countSql
+
+web:
+    maxUploadSize: 10485760
+
+
+
+

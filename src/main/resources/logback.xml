@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_PATH" value='@maven.logback.logpath@' />
+
+	<appender name="SCHEDULE_TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/platform_schedule_trace.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/platform_schedule_trace-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>===%d{yyyy-MM-dd HH:mm:ss} %m%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>@maven.logback.rolling.trace.level@</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>===%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>@maven.logback.console.level@</level>
+		</filter>
+	</appender>
+
+	<!--
+		<logger name="org.springframework" level="WARN" />
+	-->
+
+	<!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
+	<root level="@maven.logback.root.level@" >
+		<appender-ref ref="SCHEDULE_TRACE" />
+
+		<!-- 生产环境将请stdout去掉 -->
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

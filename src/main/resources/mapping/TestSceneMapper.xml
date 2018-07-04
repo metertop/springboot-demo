@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.TestSceneMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.TestScene" >
+    <id column="scene_id" property="sceneId" jdbcType="INTEGER" />
+    <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+    <result column="duration_hour" property="durationHour" jdbcType="INTEGER" />
+    <result column="duration_min" property="durationMin" jdbcType="INTEGER" />
+    <result column="duration_sec" property="durationSec" jdbcType="INTEGER" />
+    <result column="concurrent_user" property="concurrentUser" jdbcType="INTEGER" />
+    <result column="concurrent_start" property="concurrentStart" jdbcType="INTEGER" />
+    <result column="total_request" property="totalRequest" jdbcType="BIGINT" />
+    <result column="expect_tps" property="expectTps" jdbcType="INTEGER" />
+    <result column="contain_linkid" property="containLinkid" jdbcType="VARCHAR" />
+    <result column="link_relation" property="linkRelation" jdbcType="VARCHAR" />
+    <result column="use_agent" property="useAgent" jdbcType="INTEGER" />
+    <result column="scene_status" property="sceneStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    scene_id, scene_name, duration_hour, duration_min, duration_sec, concurrent_user, 
+    concurrent_start, total_request, expect_tps, contain_linkid, link_relation, use_agent, 
+    scene_status, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_scene
+    where scene_id = #{sceneId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_scene
+    where scene_id = #{sceneId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.TestScene" >
+    insert into t_scene (scene_id, scene_name, duration_hour, 
+      duration_min, duration_sec, concurrent_user, 
+      concurrent_start, total_request, expect_tps, 
+      contain_linkid, link_relation, use_agent, 
+      scene_status, create_time, modify_time
+      )
+    values (#{sceneId,jdbcType=INTEGER}, #{sceneName,jdbcType=VARCHAR}, #{durationHour,jdbcType=INTEGER}, 
+      #{durationMin,jdbcType=INTEGER}, #{durationSec,jdbcType=INTEGER}, #{concurrentUser,jdbcType=INTEGER}, 
+      #{concurrentStart,jdbcType=INTEGER}, #{totalRequest,jdbcType=BIGINT}, #{expectTps,jdbcType=INTEGER}, 
+      #{containLinkid,jdbcType=VARCHAR}, #{linkRelation,jdbcType=VARCHAR}, #{useAgent,jdbcType=INTEGER}, 
+      #{sceneStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.TestScene" >
+    insert into t_scene
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sceneId != null" >
+        scene_id,
+      </if>
+      <if test="sceneName != null" >
+        scene_name,
+      </if>
+      <if test="durationHour != null" >
+        duration_hour,
+      </if>
+      <if test="durationMin != null" >
+        duration_min,
+      </if>
+      <if test="durationSec != null" >
+        duration_sec,
+      </if>
+      <if test="concurrentUser != null" >
+        concurrent_user,
+      </if>
+      <if test="concurrentStart != null" >
+        concurrent_start,
+      </if>
+      <if test="totalRequest != null" >
+        total_request,
+      </if>
+      <if test="expectTps != null" >
+        expect_tps,
+      </if>
+      <if test="containLinkid != null" >
+        contain_linkid,
+      </if>
+      <if test="linkRelation != null" >
+        link_relation,
+      </if>
+      <if test="useAgent != null" >
+        use_agent,
+      </if>
+      <if test="sceneStatus != null" >
+        scene_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sceneId != null" >
+        #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneName != null" >
+        #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="durationHour != null" >
+        #{durationHour,jdbcType=INTEGER},
+      </if>
+      <if test="durationMin != null" >
+        #{durationMin,jdbcType=INTEGER},
+      </if>
+      <if test="durationSec != null" >
+        #{durationSec,jdbcType=INTEGER},
+      </if>
+      <if test="concurrentUser != null" >
+        #{concurrentUser,jdbcType=INTEGER},
+      </if>
+      <if test="concurrentStart != null" >
+        #{concurrentStart,jdbcType=INTEGER},
+      </if>
+      <if test="totalRequest != null" >
+        #{totalRequest,jdbcType=BIGINT},
+      </if>
+      <if test="expectTps != null" >
+        #{expectTps,jdbcType=INTEGER},
+      </if>
+      <if test="containLinkid != null" >
+        #{containLinkid,jdbcType=VARCHAR},
+      </if>
+      <if test="linkRelation != null" >
+        #{linkRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="useAgent != null" >
+        #{useAgent,jdbcType=INTEGER},
+      </if>
+      <if test="sceneStatus != null" >
+        #{sceneStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.TestScene" >
+    update t_scene
+    <set >
+      <if test="sceneName != null" >
+        scene_name = #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="durationHour != null" >
+        duration_hour = #{durationHour,jdbcType=INTEGER},
+      </if>
+      <if test="durationMin != null" >
+        duration_min = #{durationMin,jdbcType=INTEGER},
+      </if>
+      <if test="durationSec != null" >
+        duration_sec = #{durationSec,jdbcType=INTEGER},
+      </if>
+      <if test="concurrentUser != null" >
+        concurrent_user = #{concurrentUser,jdbcType=INTEGER},
+      </if>
+      <if test="concurrentStart != null" >
+        concurrent_start = #{concurrentStart,jdbcType=INTEGER},
+      </if>
+      <if test="totalRequest != null" >
+        total_request = #{totalRequest,jdbcType=BIGINT},
+      </if>
+      <if test="expectTps != null" >
+        expect_tps = #{expectTps,jdbcType=INTEGER},
+      </if>
+      <if test="containLinkid != null" >
+        contain_linkid = #{containLinkid,jdbcType=VARCHAR},
+      </if>
+      <if test="linkRelation != null" >
+        link_relation = #{linkRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="useAgent != null" >
+        use_agent = #{useAgent,jdbcType=INTEGER},
+      </if>
+      <if test="sceneStatus != null" >
+        scene_status = #{sceneStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where scene_id = #{sceneId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.TestScene" >
+    update t_scene
+    set scene_name = #{sceneName,jdbcType=VARCHAR},
+      duration_hour = #{durationHour,jdbcType=INTEGER},
+      duration_min = #{durationMin,jdbcType=INTEGER},
+      duration_sec = #{durationSec,jdbcType=INTEGER},
+      concurrent_user = #{concurrentUser,jdbcType=INTEGER},
+      concurrent_start = #{concurrentStart,jdbcType=INTEGER},
+      total_request = #{totalRequest,jdbcType=BIGINT},
+      expect_tps = #{expectTps,jdbcType=INTEGER},
+      contain_linkid = #{containLinkid,jdbcType=VARCHAR},
+      link_relation = #{linkRelation,jdbcType=VARCHAR},
+      use_agent = #{useAgent,jdbcType=INTEGER},
+      scene_status = #{sceneStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where scene_id = #{sceneId,jdbcType=INTEGER}
+  </update>
+</mapper>
