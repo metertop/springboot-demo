@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.common.CommonResponse;
 import com.example.demo.model.AutomaticTask;
 import com.example.demo.service.AutomaticTaskService;
 
@@ -49,6 +50,14 @@ public class AutomaticTaskController {
     @RequestMapping(value = "/all/{pageNum}/{pageSize}", method = RequestMethod.GET)
     public List<AutomaticTask> allTask(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
         return automaticTaskService.getAutomaticTaskList(pageNum, pageSize);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/list/{pageNum}/{pageSize}", method = RequestMethod.GET)
+    public CommonResponse allTask2(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
+        List<AutomaticTask> listTask = automaticTaskService.getAutomaticTaskList(pageNum, pageSize);
+        CommonResponse commonResponse = CommonResponse.createPageCommonResponse(listTask);
+        return commonResponse;
     }
 
 }

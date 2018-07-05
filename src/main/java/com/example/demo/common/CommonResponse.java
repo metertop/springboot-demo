@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.common;
 
 /**
  * Created by haoyuexun on 2018/6/27.
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import com.example.demo.utils.CodeUtils;
-import com.github.pagehelper.Page;
 import com.google.common.base.Joiner;
 import com.example.demo.utils.PageInfo;
 import java.util.List;
@@ -37,7 +36,7 @@ public class CommonResponse extends HashMap<String, Object> {
         this.put("code",CodeUtils.SUCCESS_CODE);
         this.put("message",CodeUtils.SUCCESS_MSG);
         //==========================临时
-        this.put("old_timestamp", System.currentTimeMillis());
+//        this.put("old_timestamp", System.currentTimeMillis());
     }
 
     /**
@@ -106,6 +105,14 @@ public class CommonResponse extends HashMap<String, Object> {
         CommonResponse commonResponse = new CommonResponse(false);
         commonResponse.put("code",CodeUtils.EXCEPTION_CODE);
         commonResponse.put("message",CodeUtils.EXCEPTION_MSG + e);
+        return commonResponse;
+    }
+
+
+    public static CommonResponse createFailResponse(String code, String message) {
+        CommonResponse commonResponse = new CommonResponse(false);
+        commonResponse.put("code",code);
+        commonResponse.put("message",message);
         return commonResponse;
     }
     /**

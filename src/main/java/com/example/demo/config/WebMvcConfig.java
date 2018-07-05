@@ -1,9 +1,10 @@
-package com.example.demo.interceptor;
+package com.example.demo.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
+import com.example.demo.interceptor.CommonInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +43,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         // 处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-//        fastMediaTypes.add(MediaType.TEXT_HTML);    // 后来增长的
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         fastConverter.setFastJsonConfig(fastJsonConfig);
 

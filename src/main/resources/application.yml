@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 7788
 
 spring:
     datasource:
@@ -24,6 +24,20 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+
+
+    freemarker:
+        allow-request-override: false
+        cache: false
+        check-template-location: true
+        charset: UTF-8
+        content-type: text/html; charset=utf-8
+        expose-request-attributes: false
+        expose-session-attributes: false
+        expose-spring-macro-helpers: false
+        suffix: .html
+        template-loader-path: classpath:/templates/
+
 
 
 mybatis:
