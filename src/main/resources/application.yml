@@ -37,7 +37,11 @@ spring:
         expose-spring-macro-helpers: false
         suffix: .html
         template-loader-path: classpath:/templates/
-
+        settings:
+              locale: zh_CN
+              date_format: yyyy-MM-dd
+              time_format: HH:mm:ss
+              datetime_format: yyyy-MM-dd HH:mm:ss
 
 
 mybatis:
@@ -47,12 +51,12 @@ mybatis:
 #pagehelper分页插件
 pagehelper:
     helperDialect: mysql
-    reasonable: false   // 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页； 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据。
+    reasonable: false   # 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页； 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据。
     supportMethodsArguments: true
     params: count=countSql
 
-web:
-    maxUploadSize: 10485760
+#web:
+#    maxUploadSize: 10485760
 
 
 

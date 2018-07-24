@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by haoyuexun on 2018/7/5.
  */
@@ -24,10 +26,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+
 
     @GetMapping("/login")
     public String toLogin() {
@@ -36,30 +35,40 @@ public class UserController {
 
     @GetMapping("/admin")
     public String admin() {
-        return "admin";
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.checkPermission("管理员");
+            return "admin";
+
+        } catch (UnauthorizedException e) {
+            logger.error("没有足够的权限：{}", e.getMessage());
+            return "403";
+        }
+
     }
+
+
 
     @PostMapping("/login")
     public String doLogin(@RequestParam(value = "username") String userName,
-                          @RequestParam(value = "password") String passWd) {
+                          @RequestParam(value = "password") String passWd, HttpSession httpSession) {
         UsernamePasswordToken token = new UsernamePasswordToken(userName, passWd);
         Subject subject = SecurityUtils.getSubject();
+        User user = userService.selectByUserName(userName);
         try {
             subject.login(token);
+            httpSession.setAttribute("user", user);
+
         } catch (Exception e) {
             logger.error("登录失败：{}", e.getMessage());
         }
-        return "redirect:admin";
+
+        return "redirect:home";
     }
 
     @GetMapping("/home")
     public String home() {
-        Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.checkPermission("admin");
-        } catch (UnauthorizedException e) {
-            logger.error("没有足够的权限：{}", e.getMessage());
-        }
+
         return "home";
     }
 
