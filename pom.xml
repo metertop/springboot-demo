@@ -167,6 +167,23 @@
 			<version>3.9.0</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.mock-server</groupId>
+			<artifactId>mockserver-netty</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+
+	<!--	<dependency>
+			<groupId>org.mock-server</groupId>
+			<artifactId>mockserver-client-java</artifactId>
+			<version>5.5.1</version>
+		</dependency>
+-->
+
+
+
+
 		<!-- shiro -->
 		<!--<dependency>
 			<groupId>org.apache.shiro</groupId>
