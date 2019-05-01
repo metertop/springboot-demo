@@ -2,8 +2,6 @@ package com.example.demo.utils;
 
 import org.apache.http.HttpHeaders;
 
-
-
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.matchers.TimeToLive;
 import org.mockserver.matchers.Times;
@@ -96,7 +94,7 @@ public class MockServer {
 
     }
 
-
+/*
     public void testPoint1v2() throws IOException{
 //        POST http://172.16.16.36/talkplatform_point_statistics_consumer/v2/assets/query/list_valid_order_by_stuid_skutype
         String testPath = "/talkplatform_point_statistics_consumer/v2/assets/query/list_valid_order_by_stuid_skutype";
@@ -122,16 +120,11 @@ public class MockServer {
         //mock API 的返回
 
 
-
-
         mocker.when(mockReq)
                 .respond(mockResp);
 
-
-
-
-    }
-
+    }*/
+/*
     public void removePoint1v2(){
 
         String testPath = "/talkplatform_point_statistics_consumer/v2/assets/query/list_valid_order_by_stuid_skutype";
@@ -146,6 +139,8 @@ public class MockServer {
         parameters.add(parm_appkey);
         parameters.add(parm_timestamp);
         List<Header> headerList = new ArrayList<>();
+        Header headerIp = new Header("x-forwarded-for","172.16.133.124");
+        headerList.add(headerIp);
 
 //        HttpRequest mockReq = new HttpRequest().withMethod("POST").withPath(testPath).withBody(params(
 //                parameters
@@ -155,7 +150,7 @@ public class MockServer {
 
         mocker.clear(mockReq);
 
-    }
+    }*/
 
     public void reset()  {
         mocker.reset();
@@ -205,10 +200,10 @@ public class MockServer {
 //            mockServer.testCheckHealth();
 //            mockServer.testJson();
 //            mockServer.testPost();
-            mockServer.removePoint1v2();
-            mockServer.testFoward();
+//            mockServer.removePoint1v2();
+//            mockServer.testFoward();
 //            mockServer.bindPorts(9999,10000);
-
+            mockServer.testPoint1v2ByIp();
 //            try {
 //                Thread.sleep(1*1000*60);
 //            } catch (InterruptedException e) {
@@ -226,20 +221,79 @@ public class MockServer {
 //            mockServer.testPoint1v2();
 //            mockServer.testCheckHealth();
 //            mockServer.testPost();
-
-            String forwardPathAll = "tieba.baidu.com/abc";
-
-            int pos = forwardPathAll.indexOf("/");
-            String forwardHost = forwardPathAll.substring(0, pos);
-            String forwardPath = forwardPathAll.substring(pos, forwardPathAll.length());
-
-            System.out.println("-->host:" + forwardHost + "--->path:" + forwardPath+ "-");
+//
+//            String forwardPathAll = "tieba.baidu.com/abc";
+//
+//            int pos = forwardPathAll.indexOf("/");
+//            String forwardHost = forwardPathAll.substring(0, pos);
+//            String forwardPath = forwardPathAll.substring(pos, forwardPathAll.length());
+//
+//            System.out.println("-->host:" + forwardHost + "--->path:" + forwardPath+ "-");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
+
+    }
+
+
+    public void testPoint1v2ByIp(){
+
+        String testPath = "/talkplatform_point_statistics_consumer/v2/assets/query/list_valid_order_by_stuid_skutype";
+        String strRespon = "{\"users\": [{\"id\":1, \"name\":\"haoyx\"},{\"id\":2, \"name\":\"liudehua2222\"}]}";
+        Parameter parm_stuId = new Parameter("stu_id", "[1-9]\\d*");
+        Parameter parm_skuType = new Parameter("sku_type", "point");
+        Parameter parm_appkey = new Parameter("appkey", "[1-9]\\d*");
+        Parameter parm_timestamp = new Parameter("timestamp", "[1-9]\\d*");
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(parm_stuId);
+        parameters.add(parm_skuType);
+        parameters.add(parm_appkey);
+        parameters.add(parm_timestamp);
+        List<Header> headerList = new ArrayList<>();
+        Header headerIp = new Header("x-forwarded-for","172.16.133.124");
+        headerList.add(headerIp);
+
+
+        HttpRequest mockReq = new HttpRequest().withMethod("POST").withPath(testPath).withBody(params(
+                parameters
+        )).withHeaders(headerList);
+
+        HttpResponse mockResponse = new HttpResponse().withStatusCode(200).withBody(strRespon);
+        mocker.when(mockReq).respond(mockResponse);
+
+    }
+
+
+    public void testPoint1v2() {
+//        POST http://172.16.16.36/talkplatform_point_statistics_consumer/v2/assets/query/list_valid_order_by_stuid_skutype
+        String testPath = "/talkplatform_point_statistics_consumer/v2/assets/query/list_valid_order_by_stuid_skutype";
+        String strRespon = "{\"users\": [{\"id\":1, \"name\":\"haoyx\"},{\"id\":2, \"name\":\"liudehua\"}]}";
+        Parameter parm_stuId = new Parameter("stu_id", "[1-9]\\d*");
+        Parameter parm_skuType = new Parameter("sku_type", "point");
+        Parameter parm_appkey = new Parameter("appkey", "[1-9]\\d*");
+        Parameter parm_timestamp = new Parameter("timestamp", "[1-9]\\d*");
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(parm_stuId);
+        parameters.add(parm_skuType);
+        parameters.add(parm_appkey);
+        parameters.add(parm_timestamp);
+        List<Header> headerList = new ArrayList<>();
+//        HttpRequest mockReq = new HttpRequest().withMethod("POST").withPath(testPath).withBody(params(
+//                parameters)).withHeaders(headerList);
+
+        String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n<user_info>\n\t<password>123456</password>\n\t<username>张三</username>\n\t<sex>female</sex>\n</user_info>";
+
+        HttpRequest mockReq = new HttpRequest().withMethod("POST").withPath(testPath).withBody(xml(
+                xmlStr)).withHeaders(headerList);
+        HttpResponse mockResp = new HttpResponse().withStatusCode(200).withBody(strRespon).withHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8");   //.withDelay(TimeUnit.MILLISECONDS, 200 );
+        //mock API 的返回
+
+
+        mocker.when(mockReq)
+                .respond(mockResp);
 
     }
 
